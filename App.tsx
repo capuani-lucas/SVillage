@@ -19,14 +19,14 @@ import {
   View,
 } from 'react-native';
 
-import Home from "./pages/home/home";
-import { Provider } from 'react-redux';
-import { store, persistor } from "./redux/store";
-import { PersistGate } from 'redux-persist/integration/react';
+import Home from './pages/home/home';
+import {Provider} from 'react-redux';
+import {store, persistor} from './redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
 import Shifts from './pages/shifts/shifts';
 import Settings from './pages/settings/settings';
 
@@ -37,7 +37,7 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: "#ecf0f1",
+    backgroundColor: '#ecf0f1',
   };
 
   return (
@@ -45,14 +45,18 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
-            <Tab.Navigator screenOptions={{headerShown: false, tabBarStyle: {backgroundColor: "#34495e"}}}>
-              <Tab.Screen name='Home' component={Home}/>
-              <Tab.Screen name='Shifts' component={Shifts}/>
-              <Tab.Screen name='Settings' component={Settings}/>
-            </Tab.Navigator> 
+            <Tab.Navigator
+              screenOptions={{
+                headerShown: false,
+                tabBarStyle: {backgroundColor: '#34495e'},
+              }}>
+              <Tab.Screen name="Home" component={Home} />
+              <Tab.Screen name="Shifts" component={Shifts} />
+              <Tab.Screen name="Settings" component={Settings} />
+            </Tab.Navigator>
           </NavigationContainer>
-        </PersistGate>        
-      </Provider>    
+        </PersistGate>
+      </Provider>
     </>
   );
 };
