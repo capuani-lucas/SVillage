@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import InfoContainer from './infoContainer';
 
 const Shifts: React.FC = () => {
   return (
     <>
-      <SafeAreaView style={{backgroundColor: '#34495e'}} />
+      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
       <View style={styles.jobHeader}>
         <Text style={styles.jobHeaderText}>Shifts</Text>
       </View>

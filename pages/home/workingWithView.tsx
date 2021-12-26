@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {noDataMessage} from '../../utils';
+import { View, Text, StyleSheet } from 'react-native';
+import { noDataMessage } from '../../utils';
 
-const WorkingWithView: React.FC<{workingWith: any}> = ({workingWith}) => {
+const WorkingWithView: React.FC<{ workingWith: any }> = ({ workingWith }) => {
   const exampleNames = [
     'John',
     'Larry',

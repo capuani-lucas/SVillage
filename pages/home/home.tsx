@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import WorkingWithView from './workingWithView';
 import CalendarView from './calendarView';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
-import {DateData} from 'react-native-calendars/src/types';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { DateData } from 'react-native-calendars/src/types';
 import {
   getAllWorkingOnDate,
   getCurrentDay,
@@ -14,11 +14,13 @@ import {
   months,
   notWorkingMessage,
 } from '../../utils';
-import {ScheduleObject} from '../../redux/reduxConstants';
+import { ScheduleObject } from '../../redux/reduxConstants';
 
 const Home: React.FC = () => {
-  const {name} = useSelector((state: RootState) => state.nameReducer);
-  const {schedules} = useSelector((state: RootState) => state.scheduleReducer);
+  const { name } = useSelector((state: RootState) => state.nameReducer);
+  const { schedules } = useSelector(
+    (state: RootState) => state.scheduleReducer,
+  );
   const markedShifts = getMarkedShifts(schedules[0], name);
 
   const [currentDay, changeCurrentDay] = useState<DateData>(getCurrentDay());
@@ -60,7 +62,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <SafeAreaView style={{backgroundColor: '#34495e'}} />
+      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
       <View style={styles.jobHeader}>
         <Text style={styles.jobHeaderText}>The Sports Village</Text>
       </View>
@@ -87,7 +89,7 @@ const Home: React.FC = () => {
             markedShifts={markedShifts}
           />
           <WorkingWithView workingWith={workingWith} />
-          <View style={{marginBottom: 250}}></View>
+          <View style={{ marginBottom: 250 }}></View>
         </ScrollView>
       </View>
     </>

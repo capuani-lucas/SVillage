@@ -1,7 +1,7 @@
-import {combineReducers, createStore} from 'redux';
-import {nameReducer, scheduleReducer} from './reducers/reducers';
+import { combineReducers, createStore } from 'redux';
+import { nameReducer, scheduleReducer } from './reducers/reducers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {persistStore, persistReducer} from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
 
 const schedule = persistReducer(
   {

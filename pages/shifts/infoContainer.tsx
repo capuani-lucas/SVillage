@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const InfoContainer: React.FC = () => {
   return (
@@ -16,7 +16,8 @@ const InfoContainer: React.FC = () => {
         </View>
       </View>
 
-      <View style={[styles.viewContainer, {padding: 10, alignItems: 'center'}]}>
+      <View
+        style={[styles.viewContainer, { padding: 10, alignItems: 'center' }]}>
         <Text style={styles.topTextSmall}>
           Next paycheck: Friday December 4th
         </Text>

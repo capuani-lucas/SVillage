@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,13 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {addSchedule, changeName} from '../../redux/actions/actions';
-import {NameState} from '../../redux/reduxConstants';
-import {RootState} from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSchedule, changeName } from '../../redux/actions/actions';
+import { NameState } from '../../redux/reduxConstants';
+import { RootState } from '../../redux/store';
 
 const ChangeName: React.FC = () => {
-  const {name} = useSelector((state: RootState) => state.nameReducer);
+  const { name } = useSelector((state: RootState) => state.nameReducer);
   const [input, setInput] = useState<string>(name);
   const dispatch = useDispatch();
 

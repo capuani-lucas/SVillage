@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import {addSchedule} from '../../redux/actions/actions';
+import { useDispatch } from 'react-redux';
+import { addSchedule } from '../../redux/actions/actions';
 
 const AddSchedule: React.FC = () => {
   const [input, setInput] = useState<string>('');

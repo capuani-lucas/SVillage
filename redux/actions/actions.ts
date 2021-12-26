@@ -1,4 +1,4 @@
-import {ADD_SCHEDULE, CHANGE_NAME, ReduxAction} from '../reduxConstants';
+import { ADD_SCHEDULE, CHANGE_NAME, ReduxAction } from '../reduxConstants';
 
 export const addSchedule = (obj: any): ReduxAction => {
   return {

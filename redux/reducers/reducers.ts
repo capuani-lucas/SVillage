@@ -33,7 +33,7 @@ export const scheduleReducer = (
 
       if (schedules.length === 0) {
         schedules.push(action.payload);
-        return {schedules};
+        return { schedules };
       }
 
       const schedule: ScheduleObject = schedules[0];
@@ -57,7 +57,7 @@ export const scheduleReducer = (
         obj3 = temp;
       }
 
-      schedules[0] = {shifts: obj3};
+      schedules[0] = { shifts: obj3 };
 
       return {
         schedules,

@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import AddSchedule from './addSchedule';
 import ChangeName from './changeName';
 
 const Settings: React.FC = () => {
   return (
     <>
-      <SafeAreaView style={{backgroundColor: '#34495e'}} />
+      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
       <View style={styles.jobHeader}>
         <Text style={styles.jobHeaderText}>Settings</Text>
       </View>
