@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import InfoContainer from './infoContainer';
+import ShiftScroll from './shiftScroll';
 
 const Shifts: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Shifts: React.FC = () => {
 
       <View style={styles.container}>
         <InfoContainer />
+        <ShiftScroll />
       </View>
     </>
   );
@@ -20,6 +22,7 @@ const Shifts: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     margin: 8,
+    flex: 1,
   },
   jobHeader: {
     backgroundColor: '#34495e',

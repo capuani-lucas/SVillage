@@ -1,5 +1,5 @@
-import {DateData} from 'react-native-calendars/src/types';
-import {ScheduleObject, ScheduleState} from './redux/reduxConstants';
+import { DateData } from 'react-native-calendars/src/types';
+import { ScheduleObject, ScheduleState } from './redux/reduxConstants';
 
 // export const getScheduleForCurrentMonth = (obj: Array<ScheduleObject>): ScheduleObject|null => {
 //     return getScheduleForSpecificMonth(obj, new Date().toLocaleString("default", {month: "long"}));
@@ -26,7 +26,7 @@ export const getMarkedShifts = (obj: ScheduleObject, name: string): any => {
     const people = obj.shifts[allShifts[i]].people;
     for (let j = 0; j < people.length; j++) {
       if (people[j].name === name) {
-        toReturn[obj.shifts[allShifts[i]].stamp] = {marked: true};
+        toReturn[obj.shifts[allShifts[i]].stamp] = { marked: true };
       }
     }
   }
@@ -90,7 +90,7 @@ export const getCurrentDay = (): DateData => {
     dateString: getCurrentDayTimestamp(date),
     year: date.getFullYear(),
     month: date.getMonth() + 1,
-    day: date.getDay(),
+    day: date.getDate(),
     timestamp: 0,
   };
 };

@@ -17,7 +17,10 @@ const InfoContainer: React.FC = () => {
       </View>
 
       <View
-        style={[styles.viewContainer, { padding: 10, alignItems: 'center' }]}>
+        style={[
+          styles.viewContainer,
+          { padding: 10, alignItems: 'center', margin: 4 },
+        ]}>
         <Text style={styles.topTextSmall}>
           Next paycheck: Friday December 4th
         </Text>

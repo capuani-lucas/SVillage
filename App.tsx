@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -29,6 +19,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Shifts from './pages/shifts/shifts';
 import Settings from './pages/settings/settings';
+import AddJobEntry from './pages/addJobEntry/addJobEntry';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,13 +37,15 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
             <Tab.Navigator
-              screenOptions={{
+              screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: { backgroundColor: '#34495e' },
-              }}>
+                tabBarButton: [''].includes(route.name) ? _ => null : undefined,
+              })}>
               <Tab.Screen name="Home" component={Home} />
               <Tab.Screen name="Shifts" component={Shifts} />
               <Tab.Screen name="Settings" component={Settings} />
+              <Tab.Screen name="AddJobEntry" component={AddJobEntry} />
             </Tab.Navigator>
           </NavigationContainer>
         </PersistGate>

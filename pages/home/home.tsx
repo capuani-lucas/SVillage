@@ -54,8 +54,7 @@ const Home: React.FC = () => {
 
   const setCurrentDay = (data: DateData) => {
     // TODO: ADD MARKED DATES
-
-    console.log(data);
+    changeCurrentDay(data);
     setWorkingTime(getTime(data));
     setWorkingWith(getWorkingWith(data));
   };
