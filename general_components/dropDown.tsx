@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import {
   Animated,
-  LayoutChangeEvent,
   StyleProp,
   Text,
   TouchableWithoutFeedback,
@@ -62,10 +61,7 @@ const DropDown: React.FC<{
         </View>
       </TouchableWithoutFeedback>
 
-      <Animated.View style={{ height: height }}>
-        {children}
-        {/* <View onLayout={updateHeight}></View> */}
-      </Animated.View>
+      <Animated.View style={{ height: height }}>{children}</Animated.View>
     </>
   );
 };

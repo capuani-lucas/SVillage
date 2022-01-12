@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  Alert,
-} from 'react-native';
+import { Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addSchedule } from '../../redux/actions/actions';
 

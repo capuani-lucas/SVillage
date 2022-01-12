@@ -23,7 +23,6 @@ const AddJobEntry: React.FC = () => {
     console.log(value);
     setClockIn(value);
 
-    // setShowPicker(false);
     if (Platform.OS === 'android') {
       setShowPicker(false);
     }

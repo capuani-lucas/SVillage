@@ -1,19 +1,6 @@
 import { DateData } from 'react-native-calendars/src/types';
 import { ScheduleObject, ScheduleState } from './redux/reduxConstants';
 
-// export const getScheduleForCurrentMonth = (obj: Array<ScheduleObject>): ScheduleObject|null => {
-//     return getScheduleForSpecificMonth(obj, new Date().toLocaleString("default", {month: "long"}));
-// }
-
-// export const getScheduleForSpecificMonth = (obj: Array<ScheduleObject>, month: string): ScheduleObject|null => {
-//     for (let i: number = 0; i < obj.length; i++) {
-//         if (obj[i].month === month) {
-//             return obj[i];
-//         }
-//     }
-//     return null;
-// }
-
 export const getMarkedShifts = (obj: ScheduleObject, name: string): any => {
   if (obj === undefined || obj.shifts === undefined) {
     return {};
@@ -65,16 +52,11 @@ export const getWorkingTimeAtDate = (
   const shiftsForDay = obj.shifts[`${month}${day}`].people;
   for (let i = 0; i < shiftsForDay.length; i++) {
     if (shiftsForDay[i].name === name) {
-      return `Working ${shiftsForDay[i].time}`;
+      return `${shiftsForDay[i].time}`;
     }
   }
   return notWorkingMessage;
 };
-
-// export const getShiftsForName = (obj: ScheduleObject): Array<string> => {
-
-//     return [""]
-// }
 
 const getCurrentDayTimestamp = (d: Date): string => {
   let date = d;

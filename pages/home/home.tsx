@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import WorkingWithView from './workingWithView';
 import CalendarView from './calendarView';
@@ -12,22 +12,25 @@ import {
   getMarkedShifts,
   getWorkingTimeAtDate,
   months,
+  noDataMessage,
   notWorkingMessage,
 } from '../../utils';
-import { ScheduleObject } from '../../redux/reduxConstants';
 
 const Home: React.FC = () => {
   const { name } = useSelector((state: RootState) => state.nameReducer);
   const { schedules } = useSelector(
     (state: RootState) => state.scheduleReducer,
   );
-  const markedShifts = getMarkedShifts(schedules[0], name);
+
+  const [markedShifts, setMarkedShifts] = useState(
+    getMarkedShifts(schedules[0], name),
+  );
 
   const [currentDay, changeCurrentDay] = useState<DateData>(getCurrentDay());
 
   const getTime = (data: DateData): string => {
     if (!name) {
-      return '';
+      return 'No data for current day';
     }
     const n: string = name;
 
@@ -48,16 +51,22 @@ const Home: React.FC = () => {
   };
 
   const [workingTime, setWorkingTime] = useState<string>(getTime(currentDay));
+
   const [workingWith, setWorkingWith] = useState<any>(
     getWorkingWith(currentDay),
   );
 
   const setCurrentDay = (data: DateData) => {
-    // TODO: ADD MARKED DATES
     changeCurrentDay(data);
     setWorkingTime(getTime(data));
     setWorkingWith(getWorkingWith(data));
   };
+
+  // Force state change when user adds new name or new schedule
+  useEffect(() => {
+    setCurrentDay(currentDay);
+    setMarkedShifts(getMarkedShifts(schedules[0], name));
+  }, [schedules, name]);
 
   return (
     <>
@@ -78,7 +87,11 @@ const Home: React.FC = () => {
               fontSize: 18,
               fontWeight: '700',
             }}>
-            {workingTime}
+            {`${
+              workingTime !== notWorkingMessage && workingTime !== noDataMessage
+                ? 'Working '
+                : ''
+            }${workingTime}`}
           </Text>
         </View>
 

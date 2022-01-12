@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  FlatList,
-  ListRenderItem,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, ListRenderItem, StyleSheet, Text, View } from 'react-native';
 
 interface TempData {
   date: string;
@@ -60,7 +53,7 @@ const ShiftScroll: React.FC = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={[styles.header, { marginBottom: 16 }]}>
-        <Text style={styles.headerText}>DD/MM/YYYY</Text>
+        <Text style={styles.headerText}>dd-mm-yyyy</Text>
         <Text style={styles.headerText}>Hours</Text>
         <Text style={styles.headerText}>Rate</Text>
         <Text style={[styles.headerText, { color: 'green', marginRight: 30 }]}>

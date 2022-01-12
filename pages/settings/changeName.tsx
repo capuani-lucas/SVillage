@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  Alert,
-} from 'react-native';
+import { Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSchedule, changeName } from '../../redux/actions/actions';
-import { NameState } from '../../redux/reduxConstants';
+import { changeName } from '../../redux/actions/actions';
 import { RootState } from '../../redux/store';
 
 const ChangeName: React.FC = () => {

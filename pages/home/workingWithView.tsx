@@ -3,17 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { noDataMessage } from '../../utils';
 
 const WorkingWithView: React.FC<{ workingWith: any }> = ({ workingWith }) => {
-  const exampleNames = [
-    'John',
-    'Larry',
-    'Lucas',
-    'Scott',
-    'Nick',
-    'Mansor',
-    'Cliff',
-    'David',
-  ];
-
   if (workingWith === noDataMessage || workingWith.length === 0) {
     return (
       <View style={styles.container}>

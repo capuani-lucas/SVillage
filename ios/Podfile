@@ -12,6 +12,8 @@ target 'svillage_schedule' do
     :hermes_enabled => false
   )
 
+  pod 'RNReactNativeHapticFeedback', :path => '../node_modules/react-native-haptic-feedback'
+
   target 'svillage_scheduleTests' do
     inherit! :complete
     # Pods for testing
