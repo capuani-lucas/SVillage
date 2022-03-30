@@ -1,5 +1,10 @@
 import { combineReducers, createStore } from 'redux';
-import { nameReducer, scheduleReducer } from './reducers/reducers';
+import {
+  logReducer,
+  nameReducer,
+  payReducer,
+  scheduleReducer,
+} from './reducers/reducers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -21,9 +26,27 @@ const name = persistReducer(
   nameReducer,
 );
 
+const logs = persistReducer(
+  {
+    key: 'logs',
+    storage: AsyncStorage,
+  },
+  logReducer,
+);
+
+const pay = persistReducer(
+  {
+    key: 'pay',
+    storage: AsyncStorage,
+  },
+  payReducer,
+);
+
 const rootReducer = combineReducers({
   scheduleReducer: schedule,
   nameReducer: name,
+  logReducer: logs,
+  payReducer: pay,
 });
 
 export const store = createStore(rootReducer);

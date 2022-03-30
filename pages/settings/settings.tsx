@@ -1,20 +1,28 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import AddSchedule from './addSchedule';
 import ChangeName from './changeName';
+import ChangePay from './changePay';
+import DeleteLogs from './deleteLogs';
+import FetchSchedule from './fetchSchedule';
 
 const Settings: React.FC = () => {
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
-      <View style={styles.jobHeader}>
-        <Text style={styles.jobHeaderText}>Settings</Text>
-      </View>
-
       <View style={styles.container}>
-        <Text style={styles.header}>Add Schedule</Text>
-        <AddSchedule />
-        <ChangeName />
+        <ScrollView>
+          <Text style={styles.header}>Update Schedule</Text>
+          <FetchSchedule />
+          <Text style={styles.header}>Manually Add Schedule</Text>
+          <AddSchedule />
+          <Text style={styles.header}>Set Name</Text>
+          <ChangeName />
+          <Text style={styles.header}>Set Wage</Text>
+          <ChangePay />
+          <Text style={styles.header}>Delete Logged Shifts</Text>
+          <DeleteLogs />
+        </ScrollView>
       </View>
     </>
   );

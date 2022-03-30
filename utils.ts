@@ -77,6 +77,14 @@ export const getCurrentDay = (): DateData => {
   };
 };
 
+export const getDaysBetween = (start: Date, end: Date) => {
+  for (var arr = [], dt = start; dt < end; dt.setDate(dt.getDate() + 1)) {
+    arr.push(new Date(dt));
+  }
+
+  return arr.map(i => i.toISOString().split('T')[0]);
+};
+
 export const months: Array<string> = [
   'JANUARY',
   'FEBRUARY',

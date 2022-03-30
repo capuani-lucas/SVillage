@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import ActionButtons from './actionButtons';
 import InfoContainer from './infoContainer';
 import ShiftScroll from './shiftScroll';
 
 const Shifts: React.FC = () => {
+  const { logs } = useSelector((state: RootState) => state.logReducer);
+  const [filterLogs, setFilterLogs] = useState(logs);
+
+  useEffect(() => {
+    setFilterLogs(logs);
+  }, [logs]);
+
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
-      <View style={styles.jobHeader}>
-        <Text style={styles.jobHeaderText}>Shifts</Text>
-      </View>
-
       <View style={styles.container}>
-        <InfoContainer />
-        <ShiftScroll />
+        <InfoContainer logs={filterLogs} />
+        <ShiftScroll logs={filterLogs} />
+        <ActionButtons logs={logs} filterFunc={setFilterLogs} />
       </View>
     </>
   );

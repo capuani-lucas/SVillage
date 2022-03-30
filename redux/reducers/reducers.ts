@@ -1,10 +1,19 @@
 import {
+  ADD_LOG,
   ADD_SCHEDULE,
   CHANGE_NAME,
+  CHANGE_PAY,
+  logInitialState,
+  LogObject,
+  LogState,
   nameInitialState,
   NameState,
+  payInitialState,
+  PayState,
   ReduxAction,
+  REMOVE_ALL_LOGS,
   REMOVE_FROM_SCHEDULE,
+  REMOVE_LOG,
   scheduleInitialState,
   ScheduleObject,
   ScheduleState,
@@ -20,6 +29,50 @@ export const nameReducer = (
       return {
         name: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const payReducer = (
+  state: PayState = payInitialState,
+  action: ReduxAction,
+): PayState => {
+  switch (action.type) {
+    case CHANGE_PAY:
+      return {
+        pay: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const logReducer = (
+  state: LogState = logInitialState,
+  action: ReduxAction,
+): LogState => {
+  switch (action.type) {
+    case ADD_LOG:
+      var logs: Array<LogObject> = [action.payload, ...state.logs];
+
+      return {
+        logs,
+      };
+
+    case REMOVE_LOG:
+      var logs: Array<LogObject> = [...state.logs];
+      logs = logs.filter(v => v.id !== action.payload);
+
+      return {
+        logs,
+      };
+
+    case REMOVE_ALL_LOGS:
+      return {
+        logs: [],
+      };
+
     default:
       return state;
   }
@@ -112,10 +165,19 @@ export const scheduleReducer = (
 
       var forDate = schedule.shifts[action.payload.date];
 
+      var found = false;
       for (let i = 0; i < forDate.people.length; i++) {
         if (forDate.people[i].name === action.payload.name) {
           forDate.people[i].time = action.payload.newTime;
+          found = true;
         }
+      }
+
+      if (!found) {
+        forDate.people.push({
+          name: action.payload.name,
+          time: action.payload.newTime,
+        });
       }
 
       schedule.shifts[action.payload.date] = forDate;

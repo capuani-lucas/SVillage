@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { Image } from 'react-native';
 
@@ -8,9 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import Shifts from './pages/shifts/shifts';
 import Settings from './pages/settings/settings';
-import AddJobEntry from './pages/addJobEntry/addJobEntry';
+import { ShiftScreenHandler } from './stackHandler';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,14 +32,17 @@ const App = () => {
             <Tab.Navigator
               // Hide pages from navbar
               screenOptions={({ route }) => ({
-                headerShown: false,
+                headerShown: true,
+                headerStyle: { backgroundColor: '#34495e', height: 100 },
+                headerTitleStyle: { color: 'white', fontSize: 25 },
                 tabBarStyle: { backgroundColor: '#34495e' },
                 tabBarButton: ['AddJobEntry'].includes(route.name)
                   ? _ => null
                   : undefined,
               })}>
               <Tab.Screen
-                name="Home"
+                name="The Sports Village"
+                key="Home"
                 component={Home}
                 options={{
                   tabBarIcon: ({ focused }) => (
@@ -57,7 +60,8 @@ const App = () => {
               />
               <Tab.Screen
                 name="Shifts"
-                component={Shifts}
+                key="Shifts"
+                component={ShiftScreenHandler}
                 options={{
                   tabBarIcon: ({ focused }) => (
                     <Image
@@ -74,6 +78,7 @@ const App = () => {
               />
               <Tab.Screen
                 name="Settings"
+                key="Settings"
                 component={Settings}
                 options={{
                   tabBarIcon: ({ focused }) => (
@@ -89,7 +94,6 @@ const App = () => {
                   tabBarShowLabel: false,
                 }}
               />
-              <Tab.Screen name="AddJobEntry" component={AddJobEntry} />
             </Tab.Navigator>
           </NavigationContainer>
         </PersistGate>

@@ -1,29 +1,36 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { LogObject } from '../../redux/reduxConstants';
 
-const InfoContainer: React.FC = () => {
+const InfoContainer: React.FC<{ logs: Array<LogObject> }> = ({ logs }) => {
+  const calculateTotalHours = (): number => {
+    let num = 0;
+    logs.forEach((val, index) => (num += val.hours));
+    return num;
+  };
+
+  const calculateTotalIncome = (): number => {
+    let num = 0;
+    logs.forEach((val, index) => (num += val.hours * val.rate));
+    return num;
+  };
+
   return (
     <>
       <View style={[styles.topContainer]}>
         <View style={[styles.viewContainer, styles.topContainerInner]}>
           <Text style={styles.topText}>Hours</Text>
-          <Text style={styles.topTextSmall}>548.63</Text>
+          <Text style={styles.topTextSmall}>
+            {calculateTotalHours().toFixed(2)}
+          </Text>
         </View>
 
         <View style={[styles.viewContainer, styles.topContainerInner]}>
           <Text style={styles.topText}>Income</Text>
-          <Text style={[styles.topTextSmall]}>$9999</Text>
+          <Text style={[styles.topTextSmall]}>
+            ${calculateTotalIncome().toFixed(2)}
+          </Text>
         </View>
-      </View>
-
-      <View
-        style={[
-          styles.viewContainer,
-          { padding: 10, alignItems: 'center', margin: 4 },
-        ]}>
-        <Text style={styles.topTextSmall}>
-          Next paycheck: Friday December 4th
-        </Text>
       </View>
     </>
   );

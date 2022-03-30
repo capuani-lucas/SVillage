@@ -70,10 +70,10 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
+      {/* <SafeAreaView style={{ backgroundColor: '#34495e' }} />
       <View style={styles.jobHeader}>
         <Text style={styles.jobHeaderText}>The Sports Village</Text>
-      </View>
+      </View> */}
 
       <View style={styles.container}>
         <View style={[styles.viewContainer, styles.workingContainer]}>

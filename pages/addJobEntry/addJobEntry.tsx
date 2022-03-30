@@ -6,34 +6,98 @@ import {
   Text,
   TextInput,
   View,
+  Alert,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDown from '../../general_components/dropDown';
 import DismissKeyboard from '../../general_components/dismissKeyboard';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { useNavigation } from '@react-navigation/native';
+import { NavProps } from '../../redux/reduxConstants';
+import { addLog } from '../../redux/actions/actions';
 
 const AddJobEntry: React.FC = () => {
   const [showPicker, setShowPicker] = useState(true);
 
   const [clockIn, setClockIn] = useState(new Date());
-  const [hours, setHours] = useState<string>('');
+  const [clockOut, setClockOut] = useState(new Date());
 
-  const onChange: any = (event: any, value: any) => {
-    console.log(value);
+  const { pay } = useSelector((state: RootState) => state.payReducer);
+  const [rate, setRate] = useState<string>(pay.toFixed(2));
+
+  const [output, setOutput] = useState<string>('Set Information First');
+  const navigation = useNavigation<NavProps>();
+  const dispatch = useDispatch();
+
+  const handleClockInChange: any = (event: any, value: any) => {
     setClockIn(value);
-
+    calculateOutput(value, clockOut, rate);
     if (Platform.OS === 'android') {
       setShowPicker(false);
     }
   };
 
+  const handleClockOutChange: any = (event: any, value: any) => {
+    setClockOut(value);
+    calculateOutput(clockIn, value, rate);
+    if (Platform.OS === 'android') {
+      setShowPicker(false);
+    }
+  };
+
+  const calculateHours: any = (firstDate: Date, secondDate: Date) => {
+    return (
+      Math.round(((secondDate.getTime() - firstDate.getTime()) / 36e5) * 100) /
+      100
+    );
+  };
+
+  const calculateOutput: any = (date1: Date, date2: Date, w: string) => {
+    const f: number = parseFloat(w);
+    if (!(f > 0)) {
+      setOutput('Data not valid');
+    } else {
+      setOutput(
+        `${calculateHours(date1, date2)} hours -- $${
+          Math.round(calculateHours(date1, date2) * f * 100) / 100
+        }`,
+      );
+    }
+  };
+
+  const alert = (passed: boolean): void => {
+    if (passed) {
+      Alert.alert('Shift Logged');
+    } else {
+      Alert.alert(
+        'Shift Not Logged',
+        'Clock out time must be greater than clock in time and wage cannot be negative.',
+      );
+    }
+  };
+
+  const handlePress = () => {
+    if (clockOut.getTime() - clockIn.getTime() <= 0) {
+      alert(false);
+      return;
+    }
+
+    const f: number = parseFloat(rate);
+    if (!(f > 0)) {
+      alert(false);
+      return;
+    }
+
+    alert(true);
+
+    dispatch(addLog(clockIn.toISOString(), clockOut.toISOString(), f));
+    navigation.navigate('ShiftsHandler');
+  };
+
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: '#34495e' }} />
-      <View style={styles.jobHeader}>
-        <Text style={styles.jobHeaderText}>Log Shift</Text>
-      </View>
       <DismissKeyboard>
         <View style={styles.container}>
           <Text style={styles.headerText}>Times</Text>
@@ -46,7 +110,7 @@ const AddJobEntry: React.FC = () => {
                 value={clockIn}
                 style={{ flex: 1, backgroundColor: 'white' }}
                 textColor={'#34495e'}
-                onChange={onChange}
+                onChange={handleClockInChange}
               />
             </DropDown>
           </View>
@@ -57,10 +121,10 @@ const AddJobEntry: React.FC = () => {
               <DateTimePicker
                 mode={'datetime'}
                 display={'spinner'}
-                value={clockIn}
+                value={clockOut}
                 style={{ flex: 1, backgroundColor: 'white' }}
                 textColor={'#34495e'}
-                onChange={onChange}
+                onChange={handleClockOutChange}
               />
             </DropDown>
           </View>
@@ -70,17 +134,18 @@ const AddJobEntry: React.FC = () => {
             <Text style={{ fontSize: 16, marginLeft: 8 }}>$</Text>
             <TextInput
               keyboardType="numeric"
-              value={hours}
+              value={rate}
               placeholder="Enter hourly pay..."
               placeholderTextColor={'black'}
               style={styles.hoursInput}
-              onChangeText={text => setHours(text)}
+              onChangeText={setRate}
+              onEndEditing={_ => calculateOutput(clockIn, clockOut, rate)}
             />
           </View>
-          <Text style={styles.payOutput}>{hours || 'Example Pay Output'}</Text>
+          <Text style={styles.payOutput}>{output}</Text>
         </View>
       </DismissKeyboard>
-      <Pressable style={styles.submit}>
+      <Pressable style={styles.submit} onPress={handlePress}>
         <Text style={styles.submitText}>Submit</Text>
       </Pressable>
     </>

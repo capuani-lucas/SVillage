@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName, changePay } from '../../redux/actions/actions';
+import { changePay } from '../../redux/actions/actions';
 import { RootState } from '../../redux/store';
 
-const ChangeName: React.FC = () => {
-  const { name } = useSelector((state: RootState) => state.nameReducer);
-  const [input, setInput] = useState<string>(name);
+const ChangePay: React.FC = () => {
+  const { pay } = useSelector((state: RootState) => state.payReducer);
+  const [input, setInput] = useState<string>(pay.toFixed(2));
   const dispatch = useDispatch();
 
   const alert = (passed: boolean): void => {
     if (passed) {
-      Alert.alert('Name Changed');
+      Alert.alert('Wage Changed');
     } else {
-      Alert.alert('Name Not Changed', 'The data is malformed');
+      Alert.alert('Wage Not Changed', 'The data is malformed');
     }
   };
 
   const handlePress = () => {
-    if (input) {
-      dispatch(changeName(input));
-      alert(true);
-    } else {
+    const f: number = parseFloat(input);
+    if (!(f > 0)) {
       alert(false);
+    } else {
+      dispatch(changePay(Math.round(f * 100) / 100));
+      alert(true);
     }
   };
 
   return (
     <>
       <TextInput
-        placeholder="Name on schedule"
-        defaultValue={name}
+        placeholder="Hourly Wage"
+        defaultValue={pay.toString()}
         placeholderTextColor="black"
         style={styles.textInput}
         onChangeText={setInput}
@@ -38,7 +39,7 @@ const ChangeName: React.FC = () => {
       />
 
       <Pressable style={styles.submit} onPress={handlePress}>
-        <Text style={styles.submitText}>Change Name</Text>
+        <Text style={styles.submitText}>Change Wage</Text>
       </Pressable>
     </>
   );
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     padding: 14,
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
   },
 
   submitText: {
@@ -73,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChangeName;
+export default ChangePay;
